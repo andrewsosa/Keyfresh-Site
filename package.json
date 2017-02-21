@@ -1,28 +1,25 @@
 {
-  "name": "homepage",
+  "name": "keybored-site",
   "version": "1.0.0",
-  "description": "Andrew Sosa's Homepage",
-  "main": "build.js",
+  "description": "keybored-site",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/andrewsosa001/Homepage.git"
+    "url": "git+ssh://git@github.com/andrewsosa001/keybored-site.git"
   },
   "author": "Andrew Sosa",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andrewsosa001/Homepage/issues"
+    "url": "https://github.com/andrewsosa001/keybored-site/issues"
   },
-  "homepage": "https://github.com/andrewsosa001/Homepage#readme",
-  "dependencies": {
-    "gulp-pug": "^3.2.0",
-    "jstransformer-markdown-it": "^2.0.0",
-    "pug": "^2.0.0-beta11"
-  },
+  "homepage": "https://github.com/andrewsosa001/keybored-site#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-pug": "^3.2.0",
+    "gulp-sass": "^3.1.0",
+    "pug": "^2.0.0-beta9"
   }
 }
