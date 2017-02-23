@@ -1,3 +1,13 @@
+# Installable dependencies
 node_modules/
-.gitignore
+
+# Config
+*instance/
+
+# Built items
+server/app/templates
+server/app/static/css
+*.pyc
+
+# Other
 *.afdesign
