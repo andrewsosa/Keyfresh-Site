@@ -1,11 +1,36 @@
 doctype html
 html(lang="en")
-  include includes/head.pug
-  body
-    //- include includes/navbar.pug
+	include includes/head.pug
+	body
+		include includes/navbar.pug
+		.banner.block
+			.container
+				.text-wrap
+					h1
+						| Refresh your
+						br
+						| keyboard
 
+					p
+						| We're launching a service to bring new life
+						| to your keyboard every month. Sign up below
+						| and we'll be in touch soon.
 
-    //- include includes/footer.pug
+					.input-group
+						input.form-control(type="text", placeholder="Enter email address")
+						span.input-group-btn
+							button.btn.btn-default(type="button") Notify Me!
 
-    //- Import scipts AFTER document
-    include includes/scripts.pug
+					p
+						| No spam here, only sweet loot.
+
+		//- Import scipts AFTER document
+		include includes/scripts.pug
+
+		//-
+		//- <div class="input-group">
+		//-       <span class="input-group-btn">
+		//-         <button class="btn btn-default" type="button">Go!</button>
+		//-       </span>
+		//-       <input type="text" class="form-control" placeholder="Search for...">
+		//-     </div><!-- /input-group -->
