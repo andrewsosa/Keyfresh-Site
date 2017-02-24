@@ -1,2 +1,22 @@
 .footer
-    Hello world
+    .footer-content
+        .brand
+            img(src="{{url_for('static', filename='assets/k5icon.svg')}}")
+            .brand-name Keyfresh
+        .foot-nav
+            a(href="/#about") About
+            if showProducts
+                a Products
+            a(href="https://medium.com/@keyfreshsubbox") Blog
+            a(href="mailto:contact@keyfresh.me?subject=Hello!") Contact
+
+        .media
+            a(href="https://twitter.com/keyfreshsubbox")
+                img(src="{{url_for('static', filename='assets/twitter-icon.png')}}")
+            //- a
+            //-     img(src="{{url_for('static', filename='assets/instagram-icon.png')}}")
+
+
+
+    .footer-copyright
+        p © Keyfresh, 2017. All Rights Reserved.

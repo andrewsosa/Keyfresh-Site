@@ -8,31 +8,12 @@ nav.navbar.navbar-default
 				span.icon-bar
 				span.icon-bar
 			a.navbar-brand
-				img.navbar-icon(src="assets/k5icon.svg")
-				.navbar-title Key
+				img.navbar-icon(src="{{url_for('static', filename='assets/k5icon.svg')}}")
+				.navbar-title
+					| Key
 					.red fresh
-		//- #navbar.collapse.navbar-collapse
-		//- 	ul.nav.navbar-nav
-		//- 		li
-		//- 			a(href='/about') About Us
-			//- 	li
-			//- 		a(href='./resume.html') Resume
-			//- 	li
-			//- 		a(href='http://github.com/andrewsosa001') Github
-				//-li.dropdown
-					a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-						| Dropdown
-						span.caret
-					ul.dropdown-menu(role='menu')
-						li
-							a(href='#') Action
-						li
-							a(href='#') Another action
-						li
-							a(href='#') Something else here
-						li.divider
-						li.dropdown-header Nav header
-						li
-							a(href='#') Separated link
-						li
-							a(href='#') One more separated link
+
+		#navbar.collapse.navbar-collapse
+			ul.nav.navbar-nav
+				li.clear-button
+					a(href= surveyURL) Take Our Survey
