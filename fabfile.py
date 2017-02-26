@@ -139,6 +139,7 @@ def run_app():
 
 def deploy_code():
     """ Pushes changes to production. """
+    sudo(chown + remote_app_dir)
     with lcd(local_app_dir):
         local('git push production master')
     sudo(chown + remote_app_dir)
