@@ -3,10 +3,12 @@ node_modules/
 
 # Config
 *instance/
+config/
+fabconfig.py
 
 # Built items
-server/app/templates
-server/app/static/css
+flask/app/templates
+flask/app/static/css
 *.pyc
 
 # Other

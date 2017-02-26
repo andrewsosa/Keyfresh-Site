@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 
-var html_dest = 'server/app/templates';
-var sass_dest = "server/app/static/css";
+var html_dest = 'flask/app/templates';
+var sass_dest = "flask/app/static/css";
 
 // Compiles .pug files into .html
 gulp.task('pug', function() {
