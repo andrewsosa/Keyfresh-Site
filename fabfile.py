@@ -30,22 +30,26 @@ chown = 'chown -R {0}:{0} '.format(env.user)
 ### tasks ###
 #############
 
-def install_sys_requirements():
+def setup_env():
     """ Install required packages. """
-    sudo('apt-get update')
-    sudo('apt-get install -y python')
-    sudo('apt-get install -y python-pip')
-    sudo('apt-get install -y python-virtualenv')
-    sudo('apt-get install -y nginx')
-    sudo('apt-get install -y gunicorn')
-    sudo('apt-get install -y supervisor')
-    sudo('apt-get install -y git')
+    sudo('apt update')
+    sudo('apt install -y python')
+    sudo('apt install -y python-pip')
+    sudo('apt install -y python-virtualenv')
+    sudo('apt install -y nginx')
+    sudo('apt install -y gunicorn')
+    sudo('apt install -y supervisor')
+    sudo('apt install -y git')
+    sudo('apt install -y npm')
+    sudo('apt install -y nodejs-legacy')
 
 
-def install_app_requirements():
+def setup_libs():
     with cd(remote_app_dir):
         sudo('pip install -r requirements.txt')
+        sudo('npm install -g gulp')
         sudo('npm install')
+        sudo(chown + 'node_modules/')
 
 def configure_dirs():
     """
@@ -180,5 +184,5 @@ def create():
 
     # Deploy w/o running
     deploy_code()
-    install_app_requirements()
+    setup_libs()
     build_static()
