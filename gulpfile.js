@@ -6,12 +6,12 @@ var sass_dest = "flask/app/static/css";
 // Compiles .pug files into .html
 gulp.task('pug', function() {
 	var pug = require('gulp-pug');
-	var locals = require('src/locals.js');
+	// var locals = require('src/locals.js');
 
 	gulp.src('src/**/*.pug')
 		.pipe(pug({
 			'pretty': true
-			'locals': locals
+			// 'locals': locals
 		}))
 		.pipe(gulp.dest(html_dest)); // tell gulp our output folder
 });
