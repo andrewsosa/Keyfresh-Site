@@ -141,6 +141,7 @@ def deploy_code():
     """ Pushes changes to production. """
     with lcd(local_app_dir):
         local('git push production master')
+    sudo(chown + remote_app_dir)
 
 def deploy_config():
     """ Upload's instance configurations """
