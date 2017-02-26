@@ -153,7 +153,7 @@ def deploy():
     """
     with lcd(local_app_dir):
         deploy_code()
-        install_app_requirements()
+        setup_libs()
         build_static()
         sudo('supervisorctl restart keyfresh-site')
 
@@ -176,7 +176,7 @@ def status():
 
 def create():
     # Configuration
-    install_sys_requirements()
+    setup_env()
     configure_git()
     configure_nginx()
     configure_supervisor()
