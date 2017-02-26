@@ -8,7 +8,7 @@ fabconfig.py
 
 # Built items
 flask/app/templates
-flask/app/static/css
+flask/app/static/css/*.css
 *.pyc
 
 # Other
