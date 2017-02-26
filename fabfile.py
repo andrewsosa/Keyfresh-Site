@@ -2,7 +2,7 @@
 ### imports ###
 ###############
 
-from fabric.api import cd, env, lcd, put, prompt, local, sudo
+from fabric.api import cd, env, lcd, put, prompt, local, sudo, run
 from fabric.contrib.files import exists
 
 ##############
@@ -141,6 +141,13 @@ def deploy_code():
     """ Pushes changes to production. """
     with lcd(local_app_dir):
         local('git push production master')
+
+def deploy_config():
+    """ Upload's instance configurations """
+    with lcd(local_config_dir):
+        with cd(remote_flask_dir):
+            run('mkdir instance')
+            put('./config.py', './instance/', use_sudo=False)
 
 def build_static():
     """ Rebuilds static resources on server. """

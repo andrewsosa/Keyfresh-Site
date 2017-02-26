@@ -9,10 +9,10 @@ gulp.task('pug', function() {
 	// var locals = require('src/locals.js');
 
 	gulp.src('src/**/*.pug')
-		.pipe(pug({
-			'pretty': true
-			// 'locals': locals
-		}))
+		// .pipe(pug({
+		// 	'pretty': true
+		// 	// 'locals': locals
+		// }))
 		.pipe(gulp.dest(html_dest)); // tell gulp our output folder
 });
 
