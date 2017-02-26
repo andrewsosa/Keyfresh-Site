@@ -102,12 +102,15 @@ def configure_supervisor():
     2. Copy local config to remote config
     3. Register new command
     """
-    if exists('/etc/supervisor/conf.d/keyfresh-site.conf') is False:
-        with lcd(local_config_dir):
-            with cd(remote_supervisor_dir):
-                put('./keyfresh-site.conf', './', use_sudo=True)
-                sudo('supervisorctl reread')
-                sudo('supervisorctl update')
+    if exists('/etc/supervisor/conf.d/keyfresh-site.conf'):
+        with cd(remote_supervisor_dir):
+            sudo('rm ./keyfresh-site.conf')
+
+    with lcd(local_config_dir):
+        with cd(remote_supervisor_dir):
+            put('./keyfresh-site.conf', './', use_sudo=True)
+            sudo('supervisorctl reread')
+            sudo('supervisorctl update')
 
 
 def configure_git():
