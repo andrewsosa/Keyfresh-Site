@@ -42,12 +42,12 @@ def setup_env():
     sudo('apt install -y git')
     sudo('apt install -y npm')
     sudo('apt install -y nodejs-legacy')
+    sudo('npm install -g gulp')
 
 
 def setup_libs():
     with cd(remote_app_dir):
         sudo('pip install -r requirements.txt')
-        sudo('npm install -g gulp')
         sudo('npm install')
         sudo(chown + 'node_modules/')
 
