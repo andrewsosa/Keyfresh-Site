@@ -48,6 +48,7 @@ def setup_env():
 def setup_libs():
     with cd(remote_app_dir):
         sudo('npm install')
+        sudo('npm install gulp')
         sudo(chown + 'node_modules/')
 
 def configure_dirs():
@@ -72,32 +73,40 @@ def configure_nginx():
     5. Restart nginx
     """
     wipe_nginx_config()
-    if exists('/etc/nginx/sites-enabled/keyfresh-site') is False:
+    if exists(nginx_enabled) is False:
         sudo('touch ' + nginx_available)
         sudo('ln -s '+ nginx_available + ' ' + nginx_enabled)
     with lcd(local_config_dir):
-        with cd(nginx_available):
-            put(nginx_name, '', use_sudo=True)
-    sudo('/etc/init.d/nginx restart')
+        # with cd(nginx_available):
+        put(nginx_name, nginx_available, use_sudo=True)
+    sudo('systemctl restart nginx')
 
 def configure_git():
     """
-    1. Setup bare Git repo
-    2. Create post-receive hook
+    1. Create updated post-receive hook
+    2. Setup bare Git repo
+    3. Create post-receive hook
+    4. Make sure we own directories
     """
-    if exists(remote_git_dir):
-        sudo ('rm -rf ' + remote_git_dir)
-    sudo('mkdir ' + remote_git_dir)
+    # create a new hook
+    # setup bare repo
+    if not exists(remote_git_dir):
+        sudo('mkdir ' + remote_git_dir)
+    if exists(remote_repo_dir):
+        sudo ('rm -rf ' + remote_repo_dir)
     with cd(remote_git_dir):
-        sudo('mkdir keyfresh-site.git')
-        with cd('keyfresh-site.git'):
+        sudo('mkdir ' + remote_repo_name)
+        with cd(remote_repo_name):
             sudo('git init --bare')
+            # add hook
             with lcd(local_config_dir):
+                local('echo \'' + post_receive_template + '\'> ./post-receive')
                 with cd('hooks'):
                     put('./post-receive', './', use_sudo=True)
                     sudo('chmod +x post-receive')
     # make sure our user has permissions
-    sudo(chown + remote_git_dir + remote_repo_name)
+    sudo(chown + remote_repo_dir)
+
 
 def deploy_code():
     """ Pushes changes to production. """
