@@ -2,14 +2,8 @@
 node_modules/
 
 # Config
-*instance/
-config/
-fabconfig.py
+# config/
 
 # Built items
-flask/app/templates
-flask/app/static/css/*.css
+html
 *.pyc
-
-# Other
-*.afdesign
