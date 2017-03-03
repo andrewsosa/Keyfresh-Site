@@ -1,63 +1,16 @@
+// Dimens
+$nav-height:	70px
+
+
+
 // Navbar stylings
-
-$icon-size: 50px
-$nav-height: 100px
-$nav-padding: 16px
-$nav-adjust: $nav-height + $nav-padding + 4
-
-
 .navbar-default
 	z-index: 			1024
 	background-color: 	rgba(0,0,0,0)
 	border-radius: 		0
 	border-width: 		0
-	height: 			$nav-height
-	padding-top: 		$nav-padding
-
-	@media (min-width: 768px)
-		.nav
-			float: right !important
 
 
-	.navbar-brand
-		padding: 0
-		margin: 15px
-		padding-left: 15px
-
-	.navbar-brand img
-	    height: $icon-size
-	    width: auto
-
-	.navbar-brand .navbar-title
-		height: 100%
-		vertical-align: middle
-		text-transform: uppercase
-		font-family: $heavy
-		font-size: 34px
-		letter-spacing: 0.10em
-		margin-left: 12px
-		color: $white
-
-		.red
-			color: $primary
-			margin-left: -8px
-
-
-	.navbar-brand *
-		display: inline
-
-	.navbar-nav
-		// text-transform:		uppercase
-		letter-spacing: 	1px
-		padding-top: 		15px
-
-		.clear-button
-			padding: 0
-			margin-top: -8px
-
-		li a
-			color: #fff
-			font-size: 14px
-			font-family: $roboto
-			font-weight: 500
-			vertical-align: middle
+@media (min-width: 768px)
+	.nav
+		float: right !important

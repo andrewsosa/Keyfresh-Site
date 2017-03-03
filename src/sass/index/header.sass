@@ -1,0 +1,87 @@
+// index/header.sass
+#header
+    background-color: $white
+    color: $black
+    height: 100%
+    // background goes in header
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url("../assets/header-bg.jpg")
+    background-size: cover
+
+    .header-content
+        display: flex
+        flex-direction: column
+        justify-content: center
+        z-index: 512
+
+        .header-bar
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            align-items: center
+            height: 100px
+            margin-bottom: 16px
+
+            .header-brand
+                height: auto
+                width: 220px
+
+
+            .header-links
+                display: flex
+                flex-direction: row
+                margin: -5px -5px
+
+                a
+                    background-color: $accent
+                    border-radius: 50%
+                    width: 32px
+                    height: 32px
+                    margin: 5px 5px
+                    padding-top: 8px
+                    padding-bottom: 8px
+                    text-align: center
+                    @extend .md-rise !optional
+
+
+                    img
+                        height: 16px
+                        width: auto
+
+
+        .header-body
+            display: flex
+            flex-direction: column
+            align-items: center
+            max-width: 700px
+            align-self: center
+
+            .logo
+                height: 300px
+                width: 300px
+
+            .text-zone
+                @include font($roboto, 16px, 400, $text)
+                margin: 32px
+                text-align: center
+
+            #mc_embed_signup
+                width: 60%
+
+                form #mc_embed_signup_scroll
+                    display: flex
+                    width: 100%
+
+                    .email
+                        border-radius: 4px
+                        border: 1px solid $bg-light
+                        @include font($roboto, 14px, 600, $bg-light)
+                        padding: 8px 8px
+                        text-transform: uppercase
+                        width: 100%
+
+                    .clear input
+                        @extend .md-button
+                        margin: 0 8px
+
+                    .md-button
+                        background-color: $accent

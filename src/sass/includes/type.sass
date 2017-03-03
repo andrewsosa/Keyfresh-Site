@@ -1,35 +1,26 @@
 // Multiple font requests on a single line (saves time!)
-// @import url('https://fonts.googleapis.com/css?family=Merriweather:300,300i,700|Montserrat:700|Open+Sans:400,700')
-// @import url('https://fonts.googleapis.com/css?family=Merriweather:300,300i,700|Montserrat:700')
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,500,600')
-
-
-// Font Imports
-@font-face
-	font-family: "Uni Sans Light"
-	src: url("../fonts/UniSansLight.otf") format("opentype")
-
-@font-face
-	font-family: "Uni Sans Heavy"
-	src: url("../fonts/UniSansHeavy.otf") format("opentype")
-
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700|Roboto:300,400, 500')
 
 // Dynamic font size definitions
-$title-size: (null: 36px, 768px: 65px)
-$brand-sub-size: (null: 14px, 500px: 16px, 768px: 26px)
-$btn-font-sizes: (null: 12px, 500px: 18px)
+$title-size:    (null: 1.5em, 500px: 2em, 768px: 4em)
+$btn-size:      (null: .75em, 500px: 1em)
 
 @mixin font-size($fs-map)
-	@each $fs-breakpoint, $fs-font-size in $fs-map
-		@if $fs-breakpoint == null
-			font-size: $fs-font-size
-		@else
-			@media screen and (min-width: $fs-breakpoint)
-				font-size: $fs-font-size
+    @each $fs-breakpoint, $fs-font-size in $fs-map
+        @if $fs-breakpoint == null
+            font-size: $fs-font-size
+        @else
+            @media screen and (min-width: $fs-breakpoint)
+                font-size: $fs-font-size
 
 
-// Font var defs
-$heavy: 'Uni Sans Heavy', sans-serif
-$light: 'Uni Sans Light', sans-serif
-$roboto: 'Roboto', sans-serif
+// Font defs
+$roboto:    'Roboto', sans-serif
+$monty:     'Montserrat', sans-serif
+$merri:     'Merriweather', sans-serif
+
+@mixin font($family, $size, $weight: 500, $color: #000)
+    font-family: $family
+    font-weight: $weight
+    font-size: $size
+    color: $color

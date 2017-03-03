@@ -1,0 +1,44 @@
+// Style dependencies
+@import "includes/css3-mixins.sass"
+@import "includes/color.sass"
+@import "includes/type.sass"
+@import "includes/generics.sass"
+
+.footer
+    height: 200px
+    color: $white
+    background-color: $bg-dark
+
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    .footer-menu
+        width: 66%
+        margin-bottom: 32px
+
+        span
+            flex:  1
+
+    .footer-menu, .footer-menu span
+        display: flex
+        justify-content: space-around
+        align-items: center
+
+    a
+        margin: 24px 32px
+        text-transform: uppercase
+        @include font('Open Sans', 16px, 600, $white)
+
+    img
+        height: 96px
+        width: auto
+
+
+
+    @media screen and (max-width: 768px)
+        a
+            margin: 24px 16px
+        img
+            display: none
