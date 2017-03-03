@@ -1,0 +1,35 @@
+//- index.pug
+extends templates/base.pug
+
+block append styles
+  link(rel="stylesheet", href="./css/index.css")
+
+block content
+  #header
+    .header-content.container
+      //- Basically a nav bar
+      .header-bar
+        .header-brand
+          img(src="./assets/keyfresh.svg")
+        .header-links
+          a(href= locals.footer.twitter)
+            img(src="./assets/twitter.svg")
+          //- a
+          //-   img(src="./assets/facebook.svg")
+          a(href =locals.footer.instagram)
+            img(src="./assets/instagram.svg")
+      //- Actual content
+      .header-body
+        img(src="./assets/logo.svg").logo
+        .text-zone
+          p
+            | A subscription bag that brings you sweet,
+            | novelty key caps every month. We'll keep
+            | your mechanical keyboard fresh with a new
+            | set of themed keys every month, plus some
+            | mystery bonus swag to top things off.
+            br
+            br
+            | Give us your email, and we'll let you know
+            | when we start taking pre-orders.
+        include includes/mailchimp-form.pug

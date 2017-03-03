@@ -1,46 +1,83 @@
-// Generic elements & overrides
+@import "bootstrap-custom"
+
+// Primary style overwrites
 html
-    height:    100%
+	height:	100%
+	-webkit-font-smoothing: antialiased
+
 
 body
-    height:            100%
-    line-height:    1.8
-    background-color: $base
-    font-family: $roboto
+	background-color: $off-white
+	height:			100%
+	// line-height:	1.8
 
 
-.block
-    height: 100%
-    // max-height: 900px
+a
+	color: $accent
 
-    @media screen and (max-width: 1100px)
-        max-height: 700px
+	&:hover
+		text-decoration: none
+		color: $accent
 
-    @media screen and (max-width: 768px)
-        max-height: 600px
+input:focus
+	outline: none
 
+
+// Generic element stylings
 .container
-    max-width: 1170px
+	max-width: 1160px
 
-.green-button
-    background-color: $green
-    border-radius: 4px
-    border-width: 0px
-    padding: 8px 16px
-    text-transform: uppercase
+.width-guide
+    position: absolute
+    width: 50%
+    left: 0
+    height: 10px
+    background-color: $bg-light
 
-.clear-button
-    background-color: rgba(0,0,0,0)
-    border-radius: 4px
-    border-width: 2px
-    border-color: #ffffff
-    border-style: solid
-    padding: 8px 16px
-    text-transform: uppercase
 
-    &:hover
-        background-color: $white
-        color: $dark-grey
+.flex-card
+	display: flex
+	justify-content: center
+	@extend .col-xs-12, .col-sm-6, .col-md-4 !optional
 
-.wrap-content
-    display: inline-block
+
+.md-rise
+    transition: all .3s ease-out
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15)
+
+    &:active, &:hover, &:focus
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15)
+
+.md-button
+	display: inline-block
+	height: 36px
+	padding: 4px 16px
+
+	background-color: $primary
+
+	border-radius: 4px
+	border-width: 0
+
+	@include font('Open Sans', 14px, 700, $white)
+	text-transform: uppercase
+	transition: all .3s ease-out
+
+	line-height: 28px
+
+	&:active, &:hover, &:focus
+		text-decoration: none
+		color: $white
+		box-shadow: 0 0.5em 1.5em rgba(0,0,0,0.45)
+		outline: none
+
+.section-header
+	display: flex
+	flex-direction: column
+	align-items: center
+
+	.section-title
+		@include font($monty, 40px, 700, $black)
+		margin-top: 64px
+
+	.section-subtitle
+		@include font($merri, 16px, 700, $text-grey)

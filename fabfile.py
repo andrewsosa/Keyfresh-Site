@@ -9,7 +9,7 @@ from fabric.contrib.files import exists
 ### config ###
 ##############
 
-from fabconfig import *
+from config.fabconfig import *
 # local_app_dir = './'
 # local_config_dir = './config'
 #
@@ -32,86 +32,53 @@ chown = 'chown -R {0}:{0} '.format(env.user)
 
 def setup_env():
     """ Install required packages. """
+    # system dependencies
     sudo('apt update')
     sudo('apt install -y python')
     sudo('apt install -y python-pip')
     sudo('apt install -y python-virtualenv')
     sudo('apt install -y nginx')
-    sudo('apt install -y gunicorn')
-    sudo('apt install -y supervisor')
     sudo('apt install -y git')
+
+    # node dependencies
     sudo('apt install -y npm')
     sudo('apt install -y nodejs-legacy')
     sudo('npm install -g gulp')
 
-
 def setup_libs():
     with cd(remote_app_dir):
-        sudo('pip install -r requirements.txt')
         sudo('npm install')
         sudo(chown + 'node_modules/')
 
 def configure_dirs():
-    """
-    1. Create project directories
-    2. Create and activate a virtualenv
-    3. Copy Flask files to remote host
-    """
+    """  Create remote project directories """
     if exists(remote_app_dir) is False:
         sudo('mkdir ' + remote_app_dir)
-    if exists(remote_flask_dir) is False:
-        sudo('mkdir ' + remote_flask_dir)
-    with lcd(local_app_dir):
-        with cd(remote_app_dir):
-            sudo('virtualenv env')
-            sudo('source env/bin/activate')
-        # with cd(remote_flask_dir):
-        #     put('*', './', use_sudo=True)
-    sudo(chown + remote_app_dir)
+        sudo(chown + remote_app_dir)
 
 def wipe_nginx_config():
-    if exists('/etc/nginx/sites-enabled/keyfresh-site'):
-        sudo('rm /etc/nginx/sites-enabled/keyfresh-site')
-        sudo('rm /etc/nginx/sites-available/keyfresh-site')
-
+    """ Erase the nginx server configuration """
+    if exists(nginx_enabled):
+        sudo('rm ' + nginx_enabled)
+    if exists(nginx_available):
+        sudo('rm ' + nginx_available)
 
 def configure_nginx():
-    """
-    # 1. Remove default nginx config file
+    """ Set up remote nginx configuration
+    1. Remove old nginx config
     2. Create new config file
     3. Setup new symbolic link
     4. Copy local config to remote config
     5. Restart nginx
     """
-    # sudo('/etc/init.d/nginx start')
-    # if exists('/etc/nginx/sites-enabled/default'):
-    #     sudo('rm /etc/nginx/sites-enabled/default')
+    wipe_nginx_config()
     if exists('/etc/nginx/sites-enabled/keyfresh-site') is False:
-        sudo('touch /etc/nginx/sites-available/keyfresh-site')
-        sudo('ln -s /etc/nginx/sites-available/keyfresh-site' +
-             ' /etc/nginx/sites-enabled/keyfresh-site')
+        sudo('touch ' + nginx_available)
+        sudo('ln -s '+ nginx_available + ' ' + nginx_enabled)
     with lcd(local_config_dir):
-        with cd(remote_nginx_dir):
-            put('./keyfresh-site', './', use_sudo=True)
+        with cd(nginx_available):
+            put(nginx_name, '', use_sudo=True)
     sudo('/etc/init.d/nginx restart')
-
-
-def configure_supervisor():
-    """
-    1. Create new supervisor config file
-    2. Copy local config to remote config
-    3. Register new command
-    """
-    if exists('/etc/supervisor/conf.d/keyfresh-site.conf'):
-        with cd(remote_supervisor_dir):
-            sudo('rm ./keyfresh-site.conf')
-
-    with lcd(local_config_dir):
-        with cd(remote_supervisor_dir):
-            put('./keyfresh-site.conf', './', use_sudo=True)
-            sudo('supervisorctl reread')
-            sudo('supervisorctl update')
-
 
 def configure_git():
     """
@@ -132,24 +99,12 @@ def configure_git():
     # make sure our user has permissions
     sudo(chown + remote_git_dir + remote_repo_name)
 
-def run_app():
-    """ Run the app! """
-    with cd(remote_flask_dir):
-        sudo('supervisorctl start keyfresh-site')
-
 def deploy_code():
     """ Pushes changes to production. """
     sudo(chown + remote_app_dir)
     with lcd(local_app_dir):
         local('git push production master')
     sudo(chown + remote_app_dir)
-
-def deploy_config():
-    """ Upload's instance configurations """
-    with lcd(local_config_dir):
-        with cd(remote_flask_dir):
-            run('mkdir instance')
-            put('./config.py', './instance/', use_sudo=False)
 
 def build_static():
     """ Rebuilds static resources on server. """
@@ -161,17 +116,14 @@ def deploy():
     1. Upload new app files
     2. Update app requirements
     3. Build static resources
-    4. Restart gunicorn via supervisor
     """
     with lcd(local_app_dir):
         deploy_code()
         setup_libs()
         build_static()
-        sudo('supervisorctl restart keyfresh-site')
-
 
 def rollback():
-    """
+    """ Revert to previous version.
     1. Quick rollback in case of error
     2. Restart gunicorn via supervisor
     """
@@ -180,21 +132,15 @@ def rollback():
         local('git push production master')
         sudo('supervisorctl restart keyfresh-site')
 
-
-def status():
-    """ Is our app live? """
-    sudo('supervisorctl status')
-
-
 def create():
+    """Init completely fresh server instance. """
     # Configuration
     setup_env()
     configure_git()
     configure_nginx()
-    configure_supervisor()
     configure_dirs()
 
-    # Deploy w/o running
-    deploy_code()
-    setup_libs()
-    build_static()
+    # Deploy
+    # deploy_code()
+    # setup_libs()
+    # build_static()
